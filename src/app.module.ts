@@ -1,9 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CoreModule } from './core/core.module';
+import { AuthorizationModule } from './authorization/authorization.module';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [],
+  imports: [CoreModule, AuthorizationModule, AuthModule,ConfigModule.forRoot({
+    isGlobal: true, // global qilsa boshqa modullarda import qilmasangiz ham bo‘ladi
+    envFilePath: '.env',
+  }),],
   controllers: [AppController],
   providers: [AppService],
 })
