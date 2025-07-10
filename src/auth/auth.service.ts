@@ -15,4 +15,14 @@ export class AuthService {
           throw new UnauthorizedException(error.message);
         }
       }
+      async verifyAccessToken(token: string) {
+        try {
+          return await this.jwtService.verifyAsync(token, {
+            secret: this.configService.get<string>('ACCESS_SECRET'),
+          });
+        } catch (error) {
+          console.error('verifyAccessToken error:', error);
+          return false;
+        }
+      }
 }

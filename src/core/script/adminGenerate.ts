@@ -5,7 +5,7 @@ const superadminCreate = async ()=>{
     const oldUser = await prisma.users.findFirst({where:{email:'superadmin@gmail.com'}})
     if(!oldUser){
         const password = await bcrypt.hash('12345678',10)
-        await prisma.users.create({data:{fullname:'superadmin',password:password,email:'superadmin@gmail.com'}})
+        await prisma.users.create({data:{fullname:'superadmin',password:password,email:'superadmin@gmail.com',role:'SUPERADMIN'}})
     }
 }
 export default superadminCreate

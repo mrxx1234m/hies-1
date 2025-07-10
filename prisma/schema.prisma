@@ -22,6 +22,26 @@ model Users{
   createdAt DateTime @default(now())
   updateAt DateTime? @updatedAt
   googleId String? @unique
+  isActive Boolean @default(true)
+}
+
+model Job{
+  id Int @id @default(autoincrement())
+  name String
+  field String
+  countries String
+  salary Float
+  minAge Int
+  maxAge Int
+  duration Int
+  startWork DateTime
+  description String
+  phone String?
+  telegram String?
+  logotip String
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
 }
 
 enum Role{
