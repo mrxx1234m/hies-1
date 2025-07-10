@@ -9,7 +9,7 @@ async function bootstrap() {
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('HIES API')
-    .setVersion('1.0')
+    .setVersion('1.1')
     .addBearerAuth()
     .build() 
   const dokument = SwaggerModule.createDocument(app,swaggerConfig)
@@ -18,6 +18,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
   await superadminCreate()
   await app.listen(process.env.PORT ?? 3000);
+  app.enableCors()
   console.log(`http://localhost:${process.env.PORT || 3000}/api`)
 }
 bootstrap();
