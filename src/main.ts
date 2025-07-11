@@ -7,22 +7,36 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // 🔁 CORS SOZLAMA BIRINCHI TURISHI KERAK
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    allowedHeaders: 'Origin, Content-Type, Accept, Authorization',
+  });
+
+  // Swagger
   const swaggerConfig = new DocumentBuilder()
     .setTitle('HIES API')
     .setVersion('1.1')
     .addBearerAuth()
-    .build() 
-  const dokument = SwaggerModule.createDocument(app,swaggerConfig)
-  SwaggerModule.setup('/api',app,dokument)
+    .build();
+  const dokument = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('/api', app, dokument);
 
+  // Global Exception
   app.useGlobalFilters(new AllExceptionsFilter());
-  await superadminCreate()
-  const PORT = process.env.PORT || 3000
-  app.enableCors();
-  
+
+  // Superadmin yaratish
+  await superadminCreate();
+
+  const PORT = process.env.PORT || 3000;
+
+  // 🔚 YAKUNIDA LISTEN
   await app.listen(PORT, '0.0.0.0');
-  console.log(`http://localhost:${process.env.PORT || 3000}/api`)
-  
+  console.log(`http://localhost:${PORT}/api`);
 }
+bootstrap();
+
 bootstrap();
 
