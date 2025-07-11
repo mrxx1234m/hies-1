@@ -18,13 +18,10 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
   await superadminCreate()
   const PORT = process.env.PORT || 3000
-  app.enableCors({
-    origin: true,      // barcha domenlarga ruxsat
-    methods: '*',      // barcha HTTP methodlarga ruxsat
-    credentials: true, // agar cookie ishlatilsa
-  });
-  console.log(`http://localhost:${process.env.PORT || 3000}/api`)
+  app.enableCors();
+  
   await app.listen(PORT, '0.0.0.0');
+  console.log(`http://localhost:${process.env.PORT || 3000}/api`)
   
 }
 bootstrap();
