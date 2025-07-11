@@ -38,6 +38,8 @@ import {
         timestamp: new Date().toISOString(),
         path: request.url,
       });
+
     }
   }
+  
   
