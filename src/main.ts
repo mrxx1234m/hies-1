@@ -17,7 +17,8 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionsFilter());
   await superadminCreate()
-  await app.listen(process.env.PORT ?? 3000);
+  const PORT = process.env.PORT || 3000
+  await app.listen(PORT, '0.0.0.0');
   app.enableCors({
     origin: true,      // barcha domenlarga ruxsat
     methods: '*',      // barcha HTTP methodlarga ruxsat
