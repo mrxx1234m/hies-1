@@ -19,8 +19,9 @@ async function bootstrap() {
   await superadminCreate()
   await app.listen(process.env.PORT ?? 3000);
   app.enableCors({
-    origin: '*', // barcha domenlarga ruxsat
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: true,      // barcha domenlarga ruxsat
+    methods: '*',      // barcha HTTP methodlarga ruxsat
+    credentials: true, // agar cookie ishlatilsa
   });
   console.log(`http://localhost:${process.env.PORT || 3000}/api`)
 }
