@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>POST so'rov yuborish</title>
+</head>
+<body>
+  <h2>Foydalanuvchi ma'lumotlari</h2>
+  <form id="myForm">
+    <input type="text" id="name" placeholder="Ismingiz" required />
+    <button type="submit">Yuborish</button>
+  </form>
+
+  <p id="response"></p>
+
+  <script>
+    const form = document.getElementById('myForm');
+    const responseText = document.getElementById('response');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // sahifani qayta yuklanishini to'xtatadi
+      const name = document.getElementById('name').value;
+
+      try {
+        const res = await fetch('https://hies.pixl.uz/authorization/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name })
+        });
+
+        const data = await res.json();
+        responseText.textContent = `Javob: ${data.message}`;
+      } catch (err) {
+        responseText.textContent = 'Xatolik yuz berdi: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
+ß
