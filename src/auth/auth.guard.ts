@@ -20,7 +20,7 @@ export  class AuthGuard implements CanActivate{
           const decoded = await this.authService.verifyAccessToken(token)
     
           if(!decoded){
-            throw new UnauthorizedException("To'ken vaqti o'tgan yokida eskirgan")
+            throw new UnauthorizedException("To'ken es kirgan yoki vaqti o'tgan")
           }
     
           const dbUser = await this.prisma.users.findFirst({where:{id:decoded.id}})
@@ -33,7 +33,7 @@ export  class AuthGuard implements CanActivate{
     
           return true;
         } catch (err) {
-          throw new UnauthorizedException('Token noto‘g‘ri yoki muddati o‘tgan');
+          throw new UnauthorizedException("To'ken es kirgan yoki vaqti o'tgan");
         }
       }
 }

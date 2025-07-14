@@ -2,41 +2,46 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <title>POST so'rov yuborish</title>
+  <title>Login shakli</title>
 </head>
 <body>
-  <h2>Foydalanuvchi ma'lumotlari</h2>
-  <form id="myForm">
-    <input type="text" id="name" placeholder="Ismingiz" required />
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Emailingiz" required />
+    <br><br>
+    <input type="password" id="password" placeholder="Parol" required />
+    <br><br>
     <button type="submit">Yuborish</button>
   </form>
 
   <p id="response"></p>
 
   <script>
-    const form = document.getElementById('myForm');
-    const responseText = document.getElementById('response');
+    const form = document.getElementById('loginForm');
+    const responseEl = document.getElementById('response');
 
     form.addEventListener('submit', async (e) => {
-      e.preventDefault(); // sahifani qayta yuklanishini to'xtatadi
-      const name = document.getElementById('name').value;
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
       try {
-        const res = await fetch('https://hies.pixl.uz/authorization/login', {
+        const res = await fetch('http://164.68.120.136:3000/authorization/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ name })
+          body: JSON.stringify({ email, password })
         });
 
         const data = await res.json();
-        responseText.textContent = `Javob: ${data.message}`;
+
+        responseEl.textContent = 'Javob: ' + (data.message || JSON.stringify(data));
       } catch (err) {
-        responseText.textContent = 'Xatolik yuz berdi: ' + err.message;
+        responseEl.textContent = 'Xatolik yuz berdi: ' + err.message;
       }
     });
   </script>
 </body>
 </html>
-ß

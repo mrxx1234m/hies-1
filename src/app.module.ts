@@ -6,12 +6,15 @@ import { AuthorizationModule } from './authorization/authorization.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
+import { JobsModule } from './jobs/jobs.module';
+import { PaymentsModule } from './payments/payments.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [CoreModule, AuthorizationModule, AuthModule,ConfigModule.forRoot({
     isGlobal: true, 
     envFilePath: '.env',
-  }),UsersModule],
+  }),UsersModule, JobsModule, PaymentsModule, CategoryModule],
   controllers: [AppController],
   providers: [AppService],
 })

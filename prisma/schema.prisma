@@ -23,13 +23,15 @@ model Users{
   updateAt DateTime? @updatedAt
   googleId String? @unique
   isActive Boolean @default(true)
+
+  job Job[]
 }
 
 model Job{
   id Int @id @default(autoincrement())
-  name String
-  field String
-  countries String
+  title String
+  category String
+  country String
   salary Float
   minAge Int
   maxAge Int
@@ -38,14 +40,23 @@ model Job{
   description String
   phone String?
   telegram String?
-  logotip String
+  logotip String?
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
+  userId Int
 
+  users Users @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+}
+
+model Category{
+  id Int @id @default(autoincrement())
+  name String
 }
 
 enum Role{
   ADMIN
   SUPERADMIN
   USER
+  EMPLOYER
 }

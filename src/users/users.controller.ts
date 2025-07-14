@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
@@ -50,4 +50,12 @@ export class UsersController {
     async checkedPassword(@Body() body:ChangePasswordDto, @Req() req:any){
         return this.service.changePassword(body,req)
     }
+    @Delete('delete/:id')
+    @ApiOperation({summary:"user delete for admin"})
+    @UseGuards(AuthGuard,AdminGuard)
+    @ApiBearerAuth()
+    async deleteUser(@Param('id') id:string ){
+        return this.service.deleteUser(Number(id))
+    }
 }
+
