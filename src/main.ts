@@ -27,6 +27,7 @@ async function bootstrap() {
 
   const PORT = process.env.PORT || 3000;
 
+  app.enableCors()
   // 🔚 YAKUNIDA LISTEN
   await app.listen(PORT, '0.0.0.0');
   console.log(`http://localhost:${PORT}/api`);
