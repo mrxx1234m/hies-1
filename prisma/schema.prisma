@@ -44,9 +44,8 @@ model Job{
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
   userId Int
-
   users Users @relation(fields: [userId],references: [id],onDelete: Cascade)
-
+  status Boolean
 }
 
 model Category{
